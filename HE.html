@@ -77,6 +77,22 @@
         event.stopPropagation();
       }
     });
+
+
+        // Add a keydown event listener to the document
+    document.addEventListener("keydown", function(event) {
+      // Check if the pressed key is 'Z' (key code 90) to zoom in
+      if (event.keyCode === 90) {
+        // Zoom in
+        viewer.viewport.zoomBy(1.2);
+      }
+      // Check if the pressed key is 'X' (key code 88) to zoom out
+      else if (event.keyCode === 88) {
+        // Zoom out
+        viewer.viewport.zoomBy(0.8);
+      }
+    });
+    
 </script>
 
 </html>
