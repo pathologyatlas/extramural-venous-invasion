@@ -30,7 +30,6 @@
   <button id="continuous-scroll">Toggle Continuous Scroll</button>
 
   <script src="https://images.patolojiatlasi.com/openseadragon/openseadragon.min.js"></script>
-  <script src="https://images.patolojiatlasi.com/openseadragon/openseadragon.mouseTracker.js"></script>
   <script type="text/javascript">
     var viewer = OpenSeadragon({
       id: 'openseadragon1',
@@ -60,8 +59,9 @@
 
     function handleScroll(event) {
       if (continuousScrollEnabled) {
-        var delta = event.scrollDelta;
-        viewer.viewport.zoomBy(Math.pow(1.2, delta));
+        var delta = event.deltaY || event.detail || -(event.wheelDelta || 0);
+        var viewportPoint = viewer.viewport.pointFromPixel(event.position);
+        viewer.viewport.zoomBy(viewer.viewport.deltaPointsFromPixels(delta, viewportPoint), viewportPoint);
       }
     }
 
@@ -82,7 +82,7 @@
       }
     }
 
-    document.getElementById('openseadragon1').addEventListener('wheel', handleMiddleClickScroll, false);
+    document.getElementById('openseadragon1').addEventListener('wheel', handleScroll, false);
     document.getElementById('openseadragon1').addEventListener('DOMMouseScroll', handleMiddleClickScroll, false);
 
     document.addEventListener('keydown', function (event) {
