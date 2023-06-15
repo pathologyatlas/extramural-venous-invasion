@@ -68,22 +68,42 @@
             yOffset: '10'
         }); */
 
-        // Custom function to handle middle-click scrolling
-          function handleMiddleClickScroll(event) {
-//            if (event.which === 2 || event.button === 4) { // Check for middle-click
-              if (event.button === 1  || event.button === 4) { // Check for middle-click
-              event.preventDefault();
-              event.stopPropagation();
 
-              var delta = -event.deltaY || event.detail || -(event.wheelDelta || 0);
-              var viewportPoint = viewer.viewport.pointFromPixel(event.position);
-              viewer.viewport.zoomBy(viewer.viewport.deltaPointsFromPixels(delta, viewportPoint), viewportPoint);
-            }
-          }
+        // Add a keydown event listener to the document
+    document.addEventListener("keydown", function(event) {
+      // Check if the pressed key is 'Z' (key code 90) to zoom in
+      if (event.keyCode === 90) {
+        // Zoom in
+        viewer.viewport.zoomBy(1.2);
+      }
+      // Check if the pressed key is 'X' (key code 88) to zoom out
+      else if (event.keyCode === 88) {
+        // Zoom out
+        viewer.viewport.zoomBy(0.8);
+      }
+    });
 
-          // Attach event listener to handle middle-click scrolling
-          document.getElementById('openseadragon1').addEventListener('mousedown', handleMiddleClickScroll, false);
-          //  document.addEventListener('mousedown', handleMiddleClickScroll, false);
+
+
+
+
+
+//        // Custom function to handle middle-click scrolling
+//          function handleMiddleClickScroll(event) {
+////            if (event.which === 2 || event.button === 4) { // Check for middle-click
+//              if (event.button === 1) { // Check for middle-click
+//              event.preventDefault();
+//              event.stopPropagation();
+//
+//              var delta = -event.deltaY || event.detail || -(event.wheelDelta || 0);
+//              var viewportPoint = viewer.viewport.pointFromPixel(event.position);
+//              viewer.viewport.zoomBy(viewer.viewport.deltaPointsFromPixels(delta, viewportPoint), viewportPoint);
+//            }
+//          }
+
+//          // Attach event listener to handle middle-click scrolling
+//          document.getElementById('openseadragon1').addEventListener('mousedown', handleMiddleClickScroll, false);
+//          //  document.addEventListener('mousedown', handleMiddleClickScroll, false);
 
 
 //        // Override mouse handling behavior to enable middle-click scrolling
@@ -115,19 +135,21 @@
 
 
 
-        // Add a keydown event listener to the document
-    document.addEventListener("keydown", function(event) {
-      // Check if the pressed key is 'Z' (key code 90) to zoom in
-      if (event.keyCode === 90) {
-        // Zoom in
-        viewer.viewport.zoomBy(1.2);
-      }
-      // Check if the pressed key is 'X' (key code 88) to zoom out
-      else if (event.keyCode === 88) {
-        // Zoom out
-        viewer.viewport.zoomBy(0.8);
-      }
-    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     
 </script>
 
