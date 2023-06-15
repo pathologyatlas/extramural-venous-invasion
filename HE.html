@@ -113,20 +113,20 @@
 
 
 
-      // Custom function to handle middle-click scrolling
-      function handleMiddleClickScroll(event) {
-        if (event.button === 2) { // Check for middle-click
-          event.preventDefault();
-          event.stopPropagation();
-
-          var delta = -event.deltaY || event.detail || -(event.wheelDelta || 0);
-          var viewportPoint = viewer.viewport.pointFromPixel(event.position);
-          viewer.viewport.zoomBy(viewer.viewport.deltaPointsFromPixels(delta, viewportPoint), viewportPoint);
-        }
-      }
-
-      // Attach event listener to handle middle-click scrolling
-      document.addEventListener('mousedown', handleMiddleClickScroll, false);
+//      // Custom function to handle middle-click scrolling
+//      function handleMiddleClickScroll(event) {
+//        if (event.button === 1) { // Check for middle-click
+//          event.preventDefault();
+//          event.stopPropagation();
+//
+//          var delta = -event.deltaY || event.detail || -(event.wheelDelta || 0);
+//          var viewportPoint = viewer.viewport.pointFromPixel(event.position);
+//          viewer.viewport.zoomBy(viewer.viewport.deltaPointsFromPixels(delta, viewportPoint), viewportPoint);
+//        }
+//      }
+//
+//      // Attach event listener to handle middle-click scrolling
+//      document.addEventListener('mousedown', handleMiddleClickScroll, false);
 
 
         // Add a keydown event listener to the document
