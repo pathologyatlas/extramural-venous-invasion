@@ -69,23 +69,37 @@
         }); */
 
         // Custom function to handle middle-click scrolling
-          function handleMiddleClickScroll(event) {
-            if (event.which === 2 || event.button === 4) { // Check for middle-click
-              event.preventDefault();
-              event.stopPropagation();
-
-              var delta = -event.deltaY || event.detail || -(event.wheelDelta || 0);
-              var viewportPoint = viewer.viewport.pointFromPixel(event.position);
-              viewer.viewport.zoomBy(viewer.viewport.deltaPointsFromPixels(delta, viewportPoint), viewportPoint);
-            }
-          }
+//          function handleMiddleClickScroll(event) {
+//            if (event.which === 2 || event.button === 4) { // Check for middle-click
+//              event.preventDefault();
+//              event.stopPropagation();
+//
+//              var delta = -event.deltaY || event.detail || -(event.wheelDelta || 0);
+//              var viewportPoint = viewer.viewport.pointFromPixel(event.position);
+//              viewer.viewport.zoomBy(viewer.viewport.deltaPointsFromPixels(delta, viewportPoint), viewportPoint);
+//            }
+//          }
 
           // Attach event listener to handle middle-click scrolling
-          document.getElementById('openseadragon1').addEventListener('mousedown', handleMiddleClickScroll, false);
+//          document.getElementById('openseadragon1').addEventListener('mousedown', handleMiddleClickScroll, false);
 
 
 
 
+  // Custom function to handle middle-click scrolling
+  function handleMiddleClickScroll(event) {
+    if (event.button === 1) { // Check for middle-click
+      event.preventDefault();
+      event.stopPropagation();
+
+      var delta = -event.deltaY || event.detail || -(event.wheelDelta || 0);
+      var viewportPoint = viewer.viewport.pointFromPixel(event.position);
+      viewer.viewport.zoomBy(viewer.viewport.deltaPointsFromPixels(delta, viewportPoint), viewportPoint);
+    }
+  }
+
+  // Attach event listener to handle middle-click scrolling
+  document.addEventListener('mousedown', handleMiddleClickScroll, false);
 
 
 
