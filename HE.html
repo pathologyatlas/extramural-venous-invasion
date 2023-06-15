@@ -129,6 +129,52 @@
 //      document.addEventListener('mousedown', handleMiddleClickScroll, false);
 
 
+
+
+
+
+
+  var drag;
+
+  var mouseTracker = new OpenSeadragon.MouseTracker({
+    element: viewer.container,
+    nonPrimaryPressHandler: function (event) {
+      if (event.button === 1) { // Middle
+        drag = {
+          lastPos: event.position.clone()
+        };
+      }
+    },
+    moveHandler: function (event) {
+      if (drag) {
+        var deltaPixels = drag.lastPos.minus(event.position);
+        var deltaPoints = viewer.viewport.deltaPointsFromPixels(deltaPixels);
+        viewer.viewport.panBy(deltaPoints);
+        drag.lastPos = event.position.clone();
+      }
+    },
+    nonPrimaryReleaseHandler: function (event) {
+      if (event.button === 1) {
+        drag = null;
+      }
+    }
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         // Add a keydown event listener to the document
     document.addEventListener("keydown", function(event) {
       // Check if the pressed key is 'Z' (key code 90) to zoom in
