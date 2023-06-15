@@ -69,19 +69,20 @@
         }); */
 
         // Custom function to handle middle-click scrolling
-//          function handleMiddleClickScroll(event) {
+          function handleMiddleClickScroll(event) {
 //            if (event.which === 2 || event.button === 4) { // Check for middle-click
-//              event.preventDefault();
-//              event.stopPropagation();
-//
-//              var delta = -event.deltaY || event.detail || -(event.wheelDelta || 0);
-//              var viewportPoint = viewer.viewport.pointFromPixel(event.position);
-//              viewer.viewport.zoomBy(viewer.viewport.deltaPointsFromPixels(delta, viewportPoint), viewportPoint);
-//            }
-//          }
+              if (event.button === 1) { // Check for middle-click
+              event.preventDefault();
+              event.stopPropagation();
+
+              var delta = -event.deltaY || event.detail || -(event.wheelDelta || 0);
+              var viewportPoint = viewer.viewport.pointFromPixel(event.position);
+              viewer.viewport.zoomBy(viewer.viewport.deltaPointsFromPixels(delta, viewportPoint), viewportPoint);
+            }
+          }
 
           // Attach event listener to handle middle-click scrolling
-//          document.getElementById('openseadragon1').addEventListener('mousedown', handleMiddleClickScroll, false);
+          document.getElementById('openseadragon1').addEventListener('mousedown', handleMiddleClickScroll, false);
 
 
 //        // Override mouse handling behavior to enable middle-click scrolling
@@ -128,66 +129,6 @@
 //      // Attach event listener to handle middle-click scrolling
 //      document.addEventListener('mousedown', handleMiddleClickScroll, false);
 
-
-
-  var trackerElement = viewer.container;
-  var drag;
-
-  function capturePointer(event) {
-    if (OpenSeadragon.MouseTracker.havePointerCapture) {
-      if (OpenSeadragon.MouseTracker.havePointerEvents) {
-        // Can throw InvalidPointerId
-        try {
-          trackerElement.setPointerCapture(event.originalEvent.pointerId);
-        } catch () {
-          //
-        }
-      } else {
-        trackerElement.setCapture(true);
-      }
-    }
-  }
-
-  function releasePointer(event) {
-    if (OpenSeadragon.MouseTracker.havePointerCapture) {
-      if (OpenSeadragon.MouseTracker.havePointerEvents) {
-        // Can throw InvalidPointerId
-        try {
-          trackerElement.releasePointerCapture(event.originalEvent.pointerId);
-        } catch () {
-          //
-        }
-      } else {
-        trackerElement.releaseCapture();
-      }
-    }
-  }
-
-  var mouseTracker = new OpenSeadragon.MouseTracker({
-    element: trackerElement,
-    nonPrimaryPressHandler: function (event) {
-      if (event.button === 1) { // Middle
-        capturePointer(event);
-        drag = {
-          lastPos: event.position.clone()
-        };
-      }
-    },
-    moveHandler: function (event) {
-      if (drag) {
-        var deltaPixels = drag.lastPos.minus(event.position);
-        var deltaPoints = viewer.viewport.deltaPointsFromPixels(deltaPixels);
-        viewer.viewport.panBy(deltaPoints);
-        drag.lastPos = event.position.clone();
-      }
-    },
-    nonPrimaryReleaseHandler: function (event) {
-      if (event.button === 1) {
-        releasePointer(event);
-        drag = null;
-      }
-    }
-  });
 
 
 
