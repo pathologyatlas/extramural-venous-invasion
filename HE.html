@@ -130,16 +130,44 @@
 
 
 
-
-
-
-
+  var trackerElement = viewer.container;
   var drag;
 
+  function capturePointer(event) {
+    if (OpenSeadragon.MouseTracker.havePointerCapture) {
+      if (OpenSeadragon.MouseTracker.havePointerEvents) {
+        // Can throw InvalidPointerId
+        try {
+          trackerElement.setPointerCapture(event.originalEvent.pointerId);
+        } catch () {
+          //
+        }
+      } else {
+        trackerElement.setCapture(true);
+      }
+    }
+  }
+
+  function releasePointer(event) {
+    if (OpenSeadragon.MouseTracker.havePointerCapture) {
+      if (OpenSeadragon.MouseTracker.havePointerEvents) {
+        // Can throw InvalidPointerId
+        try {
+          trackerElement.releasePointerCapture(event.originalEvent.pointerId);
+        } catch () {
+          //
+        }
+      } else {
+        trackerElement.releaseCapture();
+      }
+    }
+  }
+
   var mouseTracker = new OpenSeadragon.MouseTracker({
-    element: viewer.container,
+    element: trackerElement,
     nonPrimaryPressHandler: function (event) {
       if (event.button === 1) { // Middle
+        capturePointer(event);
         drag = {
           lastPos: event.position.clone()
         };
@@ -155,6 +183,7 @@
     },
     nonPrimaryReleaseHandler: function (event) {
       if (event.button === 1) {
+        releasePointer(event);
         drag = null;
       }
     }
