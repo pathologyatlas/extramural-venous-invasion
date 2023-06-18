@@ -1,0 +1,70 @@
+<html>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>extramural venous invasion in colon adenocarcinoma</title>
+<meta name="keywords" content="extramural, venous invasion, colon, adenocarcinoma">
+<meta name="description" content="extramural venous invasion in colon adenocarcinoma">
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://images.patolojiatlasi.com/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://images.patolojiatlasi.com/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://images.patolojiatlasi.com/img/favicon-16x16.png">
+<link rel="manifest" href="https://images.patolojiatlasi.com/img/site.webmanifest">
+
+<div id="openseadragon1" style="width: 100%; height: 95%;"></div>
+<script src="https://images.patolojiatlasi.com/openseadragon/openseadragon.min.js"></script>
+<script type="text/javascript">
+  var viewer = OpenSeadragon({
+    id: 'openseadragon1',
+    prefixUrl: 'https://images.patolojiatlasi.com/openseadragon/images/',
+    showHomeControl: false,
+    showRotationControl: true,
+    showNavigator: true,
+    showFlipControl: true,
+    navigatorBackground: 'rgb(240, 240, 240)',
+    tileSources: {
+      Image: {
+        Url: './HE_files/',
+        TileSize: '254',
+        Overlap: '1',
+        Format: 'jpeg',
+        ServerFormat: 'Default',
+        xmlns: 'http://schemas.microsoft.com/deepzoom/2009',
+        Size: {
+          Width: '92625',
+          Height: '52349'
+        }
+      }
+    }
+  });
+
+  var drag;
+  var leftMouseButtonLocked = false;
+
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'l' || event.key === 'L') { // toggle lock state with 'L' key
+      leftMouseButtonLocked = !leftMouseButtonLocked;
+      if (leftMouseButtonLocked) {
+        drag = {
+          lastPos: viewer.viewport.pointFromPixel(new OpenSeadragon.Point(0, 0)).clone()
+        };
+      } else {
+        drag = null;
+      }
+    }
+  });
+
+  var mouseTracker = new OpenSeadragon.MouseTracker({
+    element: viewer.container,
+    moveHandler: function (event) {
+      if (drag) {
+        var deltaPixels = drag.lastPos.minus(event.position);
+        var deltaPoints = viewer.viewport.deltaPointsFromPixels(deltaPixels);
+        viewer.viewport.panBy(deltaPoints);
+        drag.lastPos = event.position.clone();
+      }
+    }
+  });
+
+</script>
+
+</html>

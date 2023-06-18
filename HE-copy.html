@@ -1,0 +1,76 @@
+<html>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>extramural venous invasion in colon adenocarcinoma</title>
+<meta name="keywords" content="extramural, venous invasion, colon, adenocarcinoma">
+<meta name="description" content="extramural venous invasion in colon adenocarcinoma">
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://images.patolojiatlasi.com/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://images.patolojiatlasi.com/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://images.patolojiatlasi.com/img/favicon-16x16.png">
+<link rel="manifest" href="https://images.patolojiatlasi.com/img/site.webmanifest">
+
+<div id="openseadragon1" style="width: 100%; height: 95%;"></div>
+<script src="https://images.patolojiatlasi.com/openseadragon/openseadragon.min.js"></script>
+<script type="text/javascript">
+  var viewer = OpenSeadragon({
+    id: 'openseadragon1',
+    prefixUrl: 'https://images.patolojiatlasi.com/openseadragon/images/',
+    showHomeControl: false,
+    showRotationControl: true,
+    showNavigator: true,
+    showFlipControl: true,
+    navigatorBackground: 'rgb(240, 240, 240)',
+    tileSources: {
+      Image: {
+        Url: './HE_files/',
+        TileSize: '254',
+        Overlap: '1',
+        Format: 'jpeg',
+        ServerFormat: 'Default',
+        xmlns: 'http://schemas.microsoft.com/deepzoom/2009',
+        Size: {
+          Width: '92625',
+          Height: '52349'
+        }
+      }
+    },
+    // Disable default controls
+    showNavigationControl: false
+  });
+
+  // Use the OpenSeadragon built-in MouseTracker to handle middle mouse button panning
+  new OpenSeadragon.MouseTracker({
+    element: viewer.container,
+    startDisabled: false,
+    clickTimeThreshold: 2, // milliseconds
+    clickDistThreshold: 1, // pixels
+    pressHandler: function (event) {
+      if (event.originalEvent.button === 1) {
+        this.userData.beganPan = true;
+        this.userData.startPoint = new OpenSeadragon.Point(event.originalEvent.clientX, event.originalEvent.clientY);
+      }
+    },
+    dragHandler: function (event) {
+      if (this.userData.beganPan) {
+        var newPoint = new OpenSeadragon.Point(event.originalEvent.clientX, event.originalEvent.clientY);
+        var delta = newPoint.minus(this.userData.startPoint);
+        viewer.viewport.panBy(viewer.viewport.deltaPointsFromPixels(delta.rotate(-viewer.viewport.getRotation())));
+        viewer.viewport.applyConstraints();
+        this.userData.startPoint = newPoint;
+      }
+    },
+    releaseHandler: function (event) {
+      this.userData.beganPan = false;
+    },
+    stopHandler: function (event) {
+      this.userData.beganPan = false;
+    },
+    userData: {
+      beganPan: false,
+      startPoint: null
+    }
+  });
+</script>
+
+</html>
