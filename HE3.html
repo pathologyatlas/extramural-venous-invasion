@@ -20,14 +20,8 @@
 
 </div>
 
-<script src="https://images.patolojiatlasi.com/openseadragon/openseadragon.min.js"></script>
+<script src="https://images.patolojiatlasi.com/openseadragon4/openseadragon.min.js"></script>
 <!-- <script src="openseadragon/openseadragon-scalebar.js"></script> -->
-
-<script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
-
-
-
-
 <script type="text/javascript">
   var viewer = OpenSeadragon({
     id: 'openseadragon1',
@@ -54,7 +48,7 @@
         }
       }
     }
-    ,
+    // ,
     // tileSources: "yourwsi.dzi",
     // sequenceMode: false,
     // autoHideControls: true,
@@ -67,7 +61,7 @@
     // defaultZoomLevel: 1,
     // showReferenceStrip: true,
     // showNavigator:  true,
-    showFullPageControl: true
+    // showFullPageControl: false
 
 
   });
@@ -97,6 +91,78 @@
       viewer.viewport.zoomBy(0.8);
     }
   });
+
+
+
+
+
+
+          // Custom function to handle middle-click scrolling
+            function handleMiddleClickScroll(event) {
+  //            if (event.which === 2 || event.button === 4) { // Check for middle-click
+                if (event.button === 1 || event.which === 2) { // Check for middle-click
+                event.preventDefault();
+                event.stopPropagation();
+
+                var delta = -event.deltaY || event.detail || -(event.wheelDelta || 0);
+                var viewportPoint = viewer.viewport.pointFromPixel(event.position);
+                viewer.viewport.zoomBy(viewer.viewport.deltaPointsFromPixels(delta, viewportPoint), viewportPoint);
+              }
+            }
+
+  //          // Attach event listener to handle middle-click scrolling
+            document.getElementById('openseadragon1').addEventListener('mousedown', handleMiddleClickScroll, false);
+  //          //  document.addEventListener('mousedown', handleMiddleClickScroll, false);
+
+
+  //        // Override mouse handling behavior to enable middle-click scrolling
+  //        viewer.addHandler('canvas-click', function (event) {
+  //          if (event.quick && event.button === 1) { // Check for middle-click
+  //            event.preventDefaultAction = true;
+  //            event.stopHandlers = true;
+  //
+  //            var delta = -event.delta.y;
+  //            var viewportPoint = viewer.viewport.pointFromPixel(event.position);
+  //            viewer.viewport.zoomBy(viewer.viewport.deltaPointsFromPixels(delta, viewportPoint), viewportPoint);
+  //          }
+  //        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

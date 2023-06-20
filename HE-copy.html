@@ -34,43 +34,37 @@
           Height: '52349'
         }
       }
-    },
-    // Disable default controls
-    showNavigationControl: false
+    }
   });
 
-  // Use the OpenSeadragon built-in MouseTracker to handle middle mouse button panning
-  new OpenSeadragon.MouseTracker({
-    element: viewer.container,
-    startDisabled: false,
-    clickTimeThreshold: 2, // milliseconds
-    clickDistThreshold: 1, // pixels
+  var isPanning = false;
+
+  var tracker = new OpenSeadragon.MouseTracker({
+    element: viewer.canvas,
     pressHandler: function (event) {
-      if (event.originalEvent.button === 1) {
-        this.userData.beganPan = true;
-        this.userData.startPoint = new OpenSeadragon.Point(event.originalEvent.clientX, event.originalEvent.clientY);
-      }
-    },
-    dragHandler: function (event) {
-      if (this.userData.beganPan) {
-        var newPoint = new OpenSeadragon.Point(event.originalEvent.clientX, event.originalEvent.clientY);
-        var delta = newPoint.minus(this.userData.startPoint);
-        viewer.viewport.panBy(viewer.viewport.deltaPointsFromPixels(delta.rotate(-viewer.viewport.getRotation())));
-        viewer.viewport.applyConstraints();
-        this.userData.startPoint = newPoint;
+      if (event.button === 1) { // Middle mouse button
+        isPanning = true;
+        event.preventDefaultAction = true; // Prevent the default middle-click action
       }
     },
     releaseHandler: function (event) {
-      this.userData.beganPan = false;
+      if (event.button === 1) {
+        isPanning = false;
+      }
     },
-    stopHandler: function (event) {
-      this.userData.beganPan = false;
-    },
-    userData: {
-      beganPan: false,
-      startPoint: null
+    moveHandler: function (event) {
+      if (isPanning) {
+        var delta = event.delta;
+        var pan = viewer.viewport.deltaPointsFromPixels(delta.negate());
+        viewer.viewport.panBy(pan);
+        event.preventDefaultAction = true; // Prevent the default mouse-move action
+      }
     }
   });
+
+  tracker.setTracking(true);
+
+
 </script>
 
 </html>
