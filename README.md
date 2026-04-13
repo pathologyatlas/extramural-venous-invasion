@@ -152,3 +152,18 @@ asis, echo = (language == "EN")
 
 
 ```
+
+
+---
+
+### Viewing Modes
+
+- [All Stains (Sequential)](https://images.patolojiatlasi.com/extramural-venous-invasion/all.html) - Browse HE, HE, HE, HE, HE, HE stains in sequence
+- [Side by Side Comparison](https://images.patolojiatlasi.com/extramural-venous-invasion/sidebyside.html) - View stains in synchronized panels
+- [Curtain Comparison](https://images.patolojiatlasi.com/extramural-venous-invasion/curtain.html) - Overlay two stains with a draggable slider
+
+### Görüntüleme Modları
+
+- [Tüm Boyamalar (Sıralı)](https://images.patolojiatlasi.com/extramural-venous-invasion/all.html) - Tüm boyamaları sırayla inceleyin
+- [Yan Yana Karşılaştırma](https://images.patolojiatlasi.com/extramural-venous-invasion/sidebyside.html) - Boyamaları eş zamanlı panellerde görüntüleyin
+- [Perde Karşılaştırma](https://images.patolojiatlasi.com/extramural-venous-invasion/curtain.html) - İki boyamayı sürgülü perde ile karşılaştırın
